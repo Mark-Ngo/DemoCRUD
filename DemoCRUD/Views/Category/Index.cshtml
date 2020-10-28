@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@model List<DemoCRUD.Models.Category>
+<a href="/category/create">
+    <input class="btn btn-success" type="button"
+           style="margin-top: 10px" value="Thêm" />
+</a>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in Model)
+        {
+            <tr>
+                <td>@category.Id</td>
+                <td>@category.Name</td>
+
+                <td>
+
+                    <a data-toggle="modal" onclick="openModal(false,@category.Id)">
+                        <input class="btn btn-primary" type="button"
+                               value="Sửa" />
+                    </a>
+
+                    <a href="/category/delete?id=@category.Id">
+                        <input class="btn btn-danger" type="button"
+                               value="Xóa" />
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
