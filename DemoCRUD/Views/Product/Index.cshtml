@@ -1,0 +1,171 @@
+﻿@{
+    ViewBag.Title = "Index";
+
+    //var products = (List<DemoCRUD.Models.Product>)ViewBag.Products;
+}
+
+@model List<DemoCRUD.Models.Product>
+
+<a data-toggle="modal" onclick="openModal(true)">
+    <input class="btn btn-success" type="button"
+           style="margin-top: 10px" value="Thêm" />
+</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Handle</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.Id</td>
+                <td>@product.Name</td>
+                <td>@product.Amount</td>
+                <td>@product.Price</td>
+                <td>
+
+                    <a data-toggle="modal" onclick="openModal(false,@product.Id)">
+                        <input class="btn btn-primary" type="button"
+                               value="Sửa" />
+                    </a>
+
+                    <a href="/product/delete?id=@product.Id">
+                        <input class="btn btn-danger" type="button"
+                               value="Xóa" />
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="#">
+                    <input name="Id" id="txtId" type="hidden" />
+                    <input id="IsEdit" type="hidden" />
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Product name</label>
+                        <input type="text" class="form-control" name="Name" id="txtName" placeholder="Enter name product">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Amount</label>
+                        <input type="number" class="form-control" name="Amount" id="txtAmount" placeholder="enter Amount">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Price</label>
+                        <input type="number" class="form-control" name="Price" id="txtPrice" placeholder="Enter price">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="saveData()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    //hành động nhấn nút save
+    function saveData() {
+        const isEdit = $("#IsEdit").val();
+        if (!!isEdit) {
+            updateProduct();
+        } else {
+            createProduct();
+        }
+    }
+
+    //Thêm dữ liệu
+    function createProduct() {
+        const product = {
+            Name: $("#txtName").val(),
+            Amount: $("#txtAmount").val(),
+            Price: $("#txtPrice").val()
+        };
+
+        $.post("/product/CreateProduct", {
+            data: product
+        },
+            function (data) {
+                console.log('Thêm thành công');
+                $('#exampleModal').modal('hide');
+                window.location.reload();
+            }
+        );
+
+    }
+
+    //cập nhật dữ liệu
+    function updateProduct() {
+
+        const product = {
+            Name: $("#txtName").val(),
+            Id: $("#txtId").val(),
+            Amount: $("#txtAmount").val(),
+            Price: $("#txtPrice").val()
+        };
+
+        $.post("/product/UpdateProduct", {
+            data: product
+        },
+            function (data) {
+                console.log('Thêm thành công');
+                $('#exampleModal').modal('hide');
+                window.location.reload();
+            }
+        );
+
+    }
+
+    //mở ra và check trạng thái
+    function openModal(status, id) {
+        if (status) {
+            $('#exampleModal').modal('show');
+            $("#txtId").val(null);
+            $("#txtName").val("");
+            $("#txtAmount").val(0);
+            $("#txtPrice").val(0);
+        } else {
+            $('#exampleModal').modal('show');
+            $('#IsEdit').val(true);
+            $('#txtId').val(id);
+            getData(id);
+        }
+    }
+
+    //lấy dữ liệu điền lên
+    function getData(id) {
+        $.get("/product/GetProductJson?id=" + id)
+            .done(function (rp) {
+
+                if (rp.status) {
+                    const data = rp.data;
+                    $("#txtId").val(data.Id);
+                    $("#txtName").val(data.Name);
+                    $("#txtAmount").val(data.Amount);
+                    $("#txtPrice").val(data.Price);
+                } else {
+                    console.log("K lay dc du lieu");
+                }
+            });
+    }
+</script>
