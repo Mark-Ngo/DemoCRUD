@@ -186,6 +186,7 @@
     <Content Include="Views\Home\E404.cshtml" />
     <Content Include="Views\Category\Index.cshtml" />
     <Content Include="Views\Category\Create.cshtml" />
+    <Content Include="Views\Category\Update.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

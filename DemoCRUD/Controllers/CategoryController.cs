@@ -10,7 +10,7 @@ namespace DemoCRUD.Controllers
 {
     public class CategoryController : Controller
     {
-       
+
         // GET: Category
         public ActionResult Index()
         {
@@ -19,18 +19,20 @@ namespace DemoCRUD.Controllers
             categories = db.Categories.ToList();
             return View(categories);
         }
-
+       
         public ActionResult Create()
         {
             return View();
         }
 
-        public ActionResult CreateData(Category category)
+
+        [HttpPost]
+        public ActionResult CreateCategory(Category data)
         {
             var db = new DemoCrudDbContext();
             try
             {
-                db.Categories.Add(category);
+                db.Categories.Add(data);
                 db.SaveChanges();
             }
             catch (Exception)
@@ -48,7 +50,7 @@ namespace DemoCRUD.Controllers
             try
             {
                 var category = db.Categories.FirstOrDefault(x => x.Id == id);
-                if(category != null)
+                if (category != null)
                 {
                     db.Categories.Remove(category);
                     db.SaveChanges();
@@ -56,7 +58,7 @@ namespace DemoCRUD.Controllers
                 }
                 else
                 {
-                     return RedirectToAction("E404", "Home");
+                    return RedirectToAction("E404", "Home");
                 }
             }
             catch (Exception)
@@ -66,8 +68,45 @@ namespace DemoCRUD.Controllers
             }
         }
 
+        public ActionResult Update(int id)
+        {
+            var db = new DemoCrudDbContext();
+            var product = db.Categories.FirstOrDefault(x => x.Id == id);
+            if (product != null)
+            {
+                return View(product);
+            }
+            else
+            {
+                return RedirectToAction("E404", "Index");
+            }
+        }
+        [HttpPost]
+        public ActionResult UpdateCategory(Category data)
+        {
+            var db = new DemoCrudDbContext();
+            try
+            {
+                var product = db.Categories.FirstOrDefault(x => x.Id == data.Id);
+                if (product != null)
+                {
 
+                    product.Name = data.Name;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return RedirectToAction("E404", "Index");
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 
-    
+
 }

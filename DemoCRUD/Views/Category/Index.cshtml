@@ -16,9 +16,7 @@
     <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-
+            <th scope="col">Category name</th>
         </tr>
     </thead>
     <tbody>
@@ -30,7 +28,7 @@
 
                 <td>
 
-                    <a data-toggle="modal" onclick="openModal(false,@category.Id)">
+                    <a href="category/update?id=@category.Id">
                         <input class="btn btn-primary" type="button"
                                value="Sửa" />
                     </a>

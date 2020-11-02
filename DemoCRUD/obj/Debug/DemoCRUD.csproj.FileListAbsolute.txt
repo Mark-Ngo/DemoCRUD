@@ -161,10 +161,10 @@ C:\Users\V\Documents\GitHub\DemoCRUD\DemoCRUD\bin\System.Web.WebPages.Razor.xml
 C:\Users\V\Documents\GitHub\DemoCRUD\DemoCRUD\bin\Newtonsoft.Json.xml
 C:\Users\V\Documents\GitHub\DemoCRUD\DemoCRUD\bin\Antlr3.Runtime.pdb
 C:\Users\V\Documents\GitHub\DemoCRUD\DemoCRUD\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\V\Documents\GitHub\DemoCRUD\DemoCRUD\obj\Debug\DemoCRUD.csprojAssemblyReference.cache
 C:\Users\V\Documents\GitHub\DemoCRUD\DemoCRUD\obj\Debug\DemoCRUD.Migrations.Add_Table_Category.resources
 C:\Users\V\Documents\GitHub\DemoCRUD\DemoCRUD\obj\Debug\DemoCRUD.csproj.GenerateResource.cache
 C:\Users\V\Documents\GitHub\DemoCRUD\DemoCRUD\obj\Debug\DemoCRUD.csproj.CoreCompileInputs.cache
 C:\Users\V\Documents\GitHub\DemoCRUD\DemoCRUD\obj\Debug\DemoCRUD.csproj.CopyComplete
 C:\Users\V\Documents\GitHub\DemoCRUD\DemoCRUD\obj\Debug\DemoCRUD.dll
 C:\Users\V\Documents\GitHub\DemoCRUD\DemoCRUD\obj\Debug\DemoCRUD.pdb
+C:\Users\V\Documents\GitHub\DemoCRUD\DemoCRUD\obj\Debug\DemoCRUD.csprojAssemblyReference.cache
