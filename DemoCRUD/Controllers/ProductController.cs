@@ -15,11 +15,19 @@ namespace DemoCRUD.Controllers
             var db = new DemoCrudDbContext();
             var products = db.Products.ToList();
 
+            var categories = db.Categories.ToList();
+            ViewBag.Categories = new SelectList(categories, "Id", "Name");
+
             return View(products);
         }
 
         public ActionResult Create()
         {
+            var db = new DemoCrudDbContext();
+            var categories = db.Categories.ToList();
+
+            ViewBag.Categories = new SelectList(categories, "Id", "Name");
+
             return View();
         }
 

@@ -138,6 +138,10 @@
     <Compile Include="Migrations\202010281529285_Add_Table_Category.Designer.cs">
       <DependentUpon>202010281529285_Add_Table_Category.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011021427242_Add_FK_To_Product_Table.cs" />
+    <Compile Include="Migrations\202011021427242_Add_FK_To_Product_Table.Designer.cs">
+      <DependentUpon>202011021427242_Add_FK_To_Product_Table.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Model.cs" />
     <Compile Include="Models\Category.cs" />
@@ -207,6 +211,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202010281529285_Add_Table_Category.resx">
       <DependentUpon>202010281529285_Add_Table_Category.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011021427242_Add_FK_To_Product_Table.resx">
+      <DependentUpon>202011021427242_Add_FK_To_Product_Table.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
