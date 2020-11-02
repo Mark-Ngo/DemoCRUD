@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "Update";
+}
+@model DemoCRUD.Models.Category
+<h2>Update</h2>
+
+<form method="post" action="/category/UpdateCategory">
+
+
+    <input name="Id" value="@Model.Id" type="hidden" />
+    <div class="form-group">
+        <label for="exampleInputEmail1">Product name</label>
+        <input type="text" class="form-control" name="Name" value="@Model.Name" placeholder="Enter category name">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>
