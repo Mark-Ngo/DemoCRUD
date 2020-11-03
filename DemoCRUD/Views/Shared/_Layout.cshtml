@@ -6,6 +6,12 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <style>
+        .ui-menu ui-widget ui-widget-content ui-autocomplete ui-front {
+            z-index: 9999;
+        }
+    </style>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -24,6 +30,12 @@
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
+                <form class="navbar-form navbar-left" action="/category/search" method="post">
+                    <div class="form-group">
+                        <input type="text" id="search" class="form-control" name="keyword" placeholder="Search">
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
             </div>
         </div>
     </div>
@@ -37,6 +49,30 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     @RenderSection("scripts", required: false)
+
+    <script>
+        $(function () {
+
+            var availableTags = [];
+
+            $.get("/category/GetCategoriesJson")
+                .done(function (rp) {
+                    if (rp.status) {
+                        availableTags = rp.data;
+
+                        $("#search").autocomplete({
+                            source: availableTags
+                        });
+                    } else {
+                        console.log("K lay dc du lieu");
+                    }
+                });
+
+        });
+    </script>
 </body>
 </html>

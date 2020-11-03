@@ -10,7 +10,6 @@ namespace DemoCRUD.Controllers
 {
     public class CategoryController : Controller
     {
-
         // GET: Category
         public ActionResult Index()
         {
@@ -19,12 +18,28 @@ namespace DemoCRUD.Controllers
             categories = db.Categories.ToList();
             return View(categories);
         }
-       
+
+        public JsonResult GetCategoriesJson()
+        {
+            var db = new DemoCrudDbContext();
+            var categories = db.Categories.Select(x => x.Name).ToList();
+            return categories.Count > 0
+                ? Json(new { status = true, data = categories }, JsonRequestBehavior.AllowGet)
+                : Json(new { status = false }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Search(string keyword)
+        {
+            var db = new DemoCrudDbContext();
+            var categories = db.Categories.Where(x => x.Name.Contains(keyword)).ToList();
+
+            return View("Index", categories);
+        }
+
         public ActionResult Create()
         {
             return View();
         }
-
 
         [HttpPost]
         public ActionResult CreateCategory(Category data)
@@ -37,7 +52,6 @@ namespace DemoCRUD.Controllers
             }
             catch (Exception)
             {
-
                 throw;
             }
             return RedirectToAction("Index");
@@ -63,7 +77,6 @@ namespace DemoCRUD.Controllers
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -81,6 +94,7 @@ namespace DemoCRUD.Controllers
                 return RedirectToAction("E404", "Index");
             }
         }
+
         [HttpPost]
         public ActionResult UpdateCategory(Category data)
         {
@@ -90,7 +104,6 @@ namespace DemoCRUD.Controllers
                 var product = db.Categories.FirstOrDefault(x => x.Id == data.Id);
                 if (product != null)
                 {
-
                     product.Name = data.Name;
                     db.SaveChanges();
                     return RedirectToAction("Index");
@@ -102,11 +115,8 @@ namespace DemoCRUD.Controllers
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
     }
-
-
 }
